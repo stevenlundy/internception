@@ -73,6 +73,8 @@
 
         var scaleFactor = 1.1;
         var zoom = function(clicks){
+            console.log(lastX, lastY);
+
             var pt = ctx.transformedPoint(lastX,lastY);
             ctx.translate(pt.x,pt.y);
             var factor = Math.pow(scaleFactor,clicks);
@@ -88,6 +90,23 @@
         };
         canvas.addEventListener('DOMMouseScroll',handleScroll,false);
         canvas.addEventListener('mousewheel',handleScroll,false);
+
+        window.autoScroll = function(clicks) {
+            var clickys = JSON.parse(JSON.stringify(clicks));
+            ctx.save();
+            var tid = window.setInterval(function() {
+                var click = clickys.shift();
+                if (!click) {
+                    ctx.restore();
+                    redraw();
+                    return clearInterval(tid);
+                }
+                lastX = click[0];
+                lastY = click[1];
+                zoom(1);
+            }, 100);
+        };
+        window.ctx = ctx;
     };
 
     var interns1 = {
@@ -105,10 +124,10 @@
         image: new Image,
         width: 3264,
         height: 2448,
-        scaleFromParent: 0.29,
+        scaleFromParent: 0.34,
         angleFromParent: 0,
-        xFromParent: 1450,
-        yFromParent: 1400,
+        xFromParent: 1460,
+        yFromParent: 1410,
         child: interns1
     };
     interns2.image.src = 'images/interns2.jpg';
@@ -129,15 +148,41 @@
         image: new Image,
         width: 4032,
         height: 3024,
-        scaleFromParent: 0.1,
+        scaleFromParent: 0.23,
         angleFromParent: 0,
-        xFromParent: 900,
-        yFromParent: 700,
+        xFromParent: 720,
+        yFromParent: 1790,
         child: interns3
     };
     interns4.image.src = 'images/interns4.jpg';
 
-    var firstImage = interns4;
+    var interns5 = {
+        image: new Image,
+        width: 4048,
+        height: 3036,
+        scaleFromParent: 0.22,
+        angleFromParent: 0,
+        xFromParent: 2000,
+        yFromParent: 2250,
+        child: interns4
+    };
+    interns5.image.src = 'images/interns5.jpg';
+
+    var interns6 = {
+        image: new Image,
+        width: 4032,
+        height: 3024,
+        scaleFromParent: 0.1,
+        angleFromParent: 0,
+        xFromParent: 900,
+        yFromParent: 700,
+        child: interns5
+    };
+    interns6.image.src = 'images/interns6.jpg';
+
+
+
+    var firstImage = interns6;
     interns1.child = firstImage;
 
     // Adds ctx.getTransform() - returns an SVGMatrix
@@ -197,5 +242,8 @@
             return pt.matrixTransform(xform.inverse());
         }
     }
+
+    var clicks = [[688,833], [694,835], [692,833], [692,833], [692,833], [692,833], [691,833], [691,833], [691,833], [691,833], [691,833], [691,829], [691,829], [689,829], [689,829], [689,829], [689,829], [689,829], [692,829], [692,829], [692,829], [692,829], [692,829], [692,829], [692,829], [688,828], [690,828], [690,828], [690,828], [690,828], [690,828], [690,828], [690,828], [690,828], [690,828], [690,828], [693,828], [693,828], [693,825], [693,825], [693,825], [692,822], [692,822], [692,822], [692,822], [692,822], [692,822], [681,825], [689,825], [689,825], [689,825], [684,825], [684,823], [683,823], [681,823], [681,823], [678,823], [678,823], [678,823], [678,823], [678,823], [672,823], [672,823], [672,823], [672,823], [672,823], [672,823], [671,822], [670,817], [670,817], [670,817], [670,817], [670,817], [670,817], [670,817], [670,817], [670,817], [674,820], [674,820], [674,820], [674,820], [674,820], [674,820], [674,820]];
+
 </script>
 </body></html>
