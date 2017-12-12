@@ -32,7 +32,8 @@
             var x = 0;
             var y = 0;
             var image = firstImage;
-            while (image) {
+            depth = 0;
+            while (image && depth++ < 100) {
                 var parentScaleFactor = scaleFactor;
                 scaleFactor *= image.scaleFromParent;
                 x += image.xFromParent * parentScaleFactor;
@@ -42,6 +43,8 @@
             }
 
         }
+        ctx.scale(3, 3);
+        ctx.translate(-firstImage.xFromParent, -firstImage.yFromParent);
         redraw();
 
         var lastX=canvas.width/2, lastY=canvas.height/2;
@@ -126,15 +129,16 @@
         image: new Image,
         width: 4032,
         height: 3024,
-        scaleFromParent: 0.3,
+        scaleFromParent: 0.1,
         angleFromParent: 0,
-        xFromParent: 0,
-        yFromParent: 0,
+        xFromParent: 900,
+        yFromParent: 700,
         child: interns3
     };
     interns4.image.src = 'images/interns4.jpg';
 
     var firstImage = interns4;
+    interns1.child = firstImage;
 
     // Adds ctx.getTransform() - returns an SVGMatrix
     // Adds ctx.transformedPoint(x,y) - returns an SVGPoint
