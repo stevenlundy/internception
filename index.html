@@ -172,17 +172,29 @@
         image: new Image,
         width: 4032,
         height: 3024,
-        scaleFromParent: 0.1,
+        scaleFromParent: 0.25,
         angleFromParent: 0,
-        xFromParent: 900,
-        yFromParent: 700,
+        xFromParent: 165,
+        yFromParent: 1350,
         child: interns5
     };
     interns6.image.src = 'images/interns6.jpg';
 
+    var interns7 = {
+        image: new Image,
+        width: 4032,
+        height: 3024,
+        scaleFromParent: 0.1,
+        angleFromParent: 0,
+        xFromParent: 900,
+        yFromParent: 700,
+        child: interns6
+    };
+    interns7.image.src = 'images/interns7.jpg';
 
 
-    var firstImage = interns6;
+
+    var firstImage = interns7;
     interns1.child = firstImage;
 
     // Adds ctx.getTransform() - returns an SVGMatrix
